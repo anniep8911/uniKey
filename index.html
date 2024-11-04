@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Edge</title>
+    <style>
+        .workFrame{
+            width: 100%;
+            height: 50vh;
+            background-color: #000;
+            color: #fff;
+        }
+        body {
+            background: #f0f4f8; /* 전체 배경 색 */
+            font-family: Arial, sans-serif;
+        }
+        .keyboard {
+            display: flex;
+            backdrop-filter: blur(10px); /* 배경 흐림 효과 */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.3); /* 유리 느낌의 반투명 배경 */
+            border-radius: 15px;
+
+        }
+        .keyboard>div {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            row-gap: 10px;
+        }
+        .keyboard>div:nth-of-type(2){
+            width: 20%;
+            justify-content: space-between;
+        }
+
+        .row {
+            display: flex;
+            row-gap: 10px;
+            flex-wrap: wrap;
+        }
+        .row.menu .key{
+            width: calc(100% / 3  - 10px);
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.7); /* 유리 느낌의 반투명 키 배경 */
+            color: #333; /* 글자 색 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            flex-grow: 1;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 5px;
+            position: relative;
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            scale: 1;
+            text-transform: lowercase;
+        }
+        .arrUp{
+            width: 100%;
+        }
+        .key:hover {
+            background: rgba(255, 255, 255, 0.9); /* 마우스 오버 시 색상 변화 */
+        }
+
+        .key.pressed {
+            background: rgba(255, 200, 200, 0.8); /* 눌렸을 때 색상 */
+            box-shadow: none;
+            scale: 1.5;
+        }
+
+        .special {
+            background: rgba(200, 200, 255, 0.7); /* 특수키 색상 */
+        }
+
+        .special.longer {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard">
+        <div class="keySect">
+            <div class="row">
+                <div class="key special" val="Esc">Esc</div>
+                <div class="key" val="F1">F1</div>
+                <div class="key" val="F2">F2</div>
+                <div class="key" val="F3">F3</div>
+                <div class="key" val="F4">F4</div>
+                <div class="key" val="F5">F5</div>
+                <div class="key" val="F6">F6</div>
+                <div class="key" val="F7">F7</div>
+                <div class="key" val="F8">F8</div>
+                <div class="key" val="F9">F9</div>
+                <div class="key" val="F10">F10</div>
+                <div class="key" val="F11">F11</div>
+                <div class="key" val="F12">F12</div>
+            </div>
+            <div class="row">
+                <div class="key special" val="Backquote">~</div>
+                <div class="key" val="1">1</div>
+                <div class="key" val="2">2</div>
+                <div class="key" val="3">3</div>
+                <div class="key" val="4">4</div>
+                <div class="key" val="5">5</div>
+                <div class="key" val="6">6</div>
+                <div class="key" val="7">7</div>
+                <div class="key" val="8">8</div>
+                <div class="key" val="9">9</div>
+                <div class="key" val="0">0</div>
+                <div class="key" val="Minus">-</div>
+                <div class="key" val="Equal">=</div>
+                <div class="key special" val="Backspace">Backspace</div>
+            </div>
+            <div class="row">
+                <div class="key special" val="Tab">Tab</div>
+                <div class="key" val="Q">Q</div>
+                <div class="key" val="W">W</div>
+                <div class="key" val="E">E</div>
+                <div class="key" val="R">R</div>
+                <div class="key" val="T">T</div>
+                <div class="key" val="Y">Y</div>
+                <div class="key" val="U">U</div>
+                <div class="key" val="I">I</div>
+                <div class="key" val="O">O</div>
+                <div class="key" val="P">P</div>
+                <div class="key" val="[">[</div>
+                <div class="key" val="]">]</div>
+                <div class="key special" val="Backslash"> \</div>
+            </div>
+            <div class="row">
+                <div class="key special" val="CapsLock">Caps Lock</div>
+                <div class="key" val="A">A</div>
+                <div class="key" val="S">S</div>
+                <div class="key" val="D">D</div>
+                <div class="key" val="F">F</div>
+                <div class="key" val="G">G</div>
+                <div class="key" val="H">H</div>
+                <div class="key" val="J">J</div>
+                <div class="key" val="K">K</div>
+                <div class="key" val="L">L</div>
+                <div class="key" val="Semicolon">;</div>
+                <div class="key" val="Quote">'</div>
+                <div class="key special" val="Enter">Enter</div>
+            </div>
+            <div class="row">
+                <div class="key special" val="ShiftLeft">Shift</div>
+                <div class="key" val="Z">Z</div>
+                <div class="key" val="X">X</div>
+                <div class="key" val="C">C</div>
+                <div class="key" val="V">V</div>
+                <div class="key" val="B">B</div>
+                <div class="key" val="N">N</div>
+                <div class="key" val="M">M</div>
+                <div class="key" val="Comma">,</div>
+                <div class="key" val="Period">.</div>
+                <div class="key" val="Slash">/</div>
+                <div class="key special" val="ShiftRight">Shift</div>
+            </div>
+            <div class="row">
+                <div class="key special" val="ControlLeft">Ctrl</div>
+                <div class="key special" val="MetaLeft">Win</div>
+                <div class="key special" val="AltLeft">Alt</div>
+                <div class="key special longer" val="Space">Space</div>
+                <div class="key special" val="AltRight">Alt</div>
+                <div class="key special" val="Fn">Fn</div>
+                <div class="key special" val="ControlRight">Ctrl</div>
+            </div>
+        </div>
+        <div class="arrSect">
+            <div class="row menu">
+                <div class="key special" val="Insert">Ins</div>
+                <div class="key special" val="Home">Home</div>
+                <div class="key special" val="PageUp">PgUp</div>
+                <div class="key special" val="PageDown">PgDn</div>
+                <div class="key special" val="End">End</div>
+                <div class="key special" val="Delete">Del</div>
+            </div>
+            <div class="row">
+                <div class="key special arrUp" val="ArrowUp">▲</div>
+                <div class="key special" val="ArrowLeft">◀</div>
+                <div class="key special" val="ArrowDown">▼</div>
+                <div class="key special" val="ArrowRight">▶</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let keys = document.querySelectorAll('.key');
+        let workFrame = document.querySelector('.workFrame');
+        // 모든 키에 이벤트 리스너 추가
+        document.addEventListener('keydown', (event) => {
+            event.preventDefault();
+            let nowKey = event.code.replace('Key', '').replace('Digit','');
+            let result = getKey(nowKey);
+            if (result) {
+                result.classList.add('pressed');
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            let nowKey = event.code.replace('Key', '').replace('Digit','');
+            let result = getKey(nowKey);
+            if (result) {
+                result.classList.remove('pressed');
+            }
+            workFrame.innerHTML += result.innerHTML.replace('Enter','<br>').replace('Tab','&nbsp;&nbsp;');
+        });
+
+        keys.forEach(key => {
+            key.addEventListener('mousedown', () => {
+                key.classList.add('pressed');
+            });
+            key.addEventListener('mouseup', () => {
+                key.classList.remove('pressed');
+            });
+        });
+
+        function getKey(val) {
+            let result = null;
+            keys.forEach(e => {
+                e.getAttribute('val') === val ? result = e : '';
+            });
+            return result;
+        }
+    </script>
+</body>
+
+</html>
+
