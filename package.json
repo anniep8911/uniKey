@@ -1,0 +1,8 @@
+{
+
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-packager . YourAppName --platform=win32 --arch=x64"
+    }
+}

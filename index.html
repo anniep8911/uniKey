@@ -201,6 +201,7 @@
         // 모든 키에 이벤트 리스너 추가
         document.addEventListener('keydown', (event) => {
             event.preventDefault();
+            event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit','');
             let result = getKey(nowKey);
             if (result) {
@@ -212,6 +213,8 @@
         });
 
         document.addEventListener('keyup', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit','');
             let result = getKey(nowKey);
             if (result) {
