@@ -206,7 +206,9 @@
             if (result) {
                 result.classList.add('pressed');
             }
+            nowKey === 'CapsLock' && !capState? capState=true: nowKey === 'CapsLock' && capState? capState=false:''; 
             setCase(nowKey,'upper');
+
         });
 
         document.addEventListener('keyup', (event) => {
@@ -236,7 +238,8 @@
         }
 
         function setCase(nowKey,state){
-            if(nowKey ==='ShiftRight' || nowKey ==='ShiftLeft'){
+            console.log(nowKey==='')
+            if(nowKey ==='ShiftRight' || nowKey ==='ShiftLeft' || nowKey==='') {
                 keys.forEach(e=>{
                     if(state=='upper'){
                         (e.classList[1] !== 'special') ? (e.style.textTransform ='uppercase', e.getAttribute('upperVal') ?  e.innerHTML = e.getAttribute('upperVal')  : '') :'';
@@ -244,6 +247,16 @@
                         e.style.textTransform ='lowercase';
                         e.getAttribute('upperVal') ?  e.innerHTML = e.getAttribute('orival') :'';
                     }
+                })
+            }
+
+            if(capState){
+                keys.forEach(e=>{
+                        (e.classList[1] !== 'special') ? e.style.textTransform ='uppercase' :'';
+                    })
+            }else{
+                keys.forEach(e=>{
+                    e.style.textTransform ='lowercase';
                 })
             }
         }
