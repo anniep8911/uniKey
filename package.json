@@ -1,8 +1,20 @@
 {
 
     "main": "main.js",
+
     "scripts": {
+
         "start": "electron .",
+
         "build": "electron-packager . YourAppName --platform=win32 --arch=x64"
+
+    },
+
+    "dependencies": {
+
+        "node-global-key-listener": "^0.3.0"
+
     }
+
 }
+

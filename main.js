@@ -1,30 +1,30 @@
 const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { GlobalKeyboardListener } = require("node-global-key-listener");
+
+let win;
+const keyboardListener = new GlobalKeyboardListener();
 
 function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+    win = new BrowserWindow({
+        width: 400,
+        height: 300,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            contextIsolation: true, // 보안 관련 설정
-            enableRemoteModule: false, // remote 모듈 비활성화
-        }
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+        alwaysOnTop: true, // 이 속성을 추가해!
     });
 
-    win.loadFile('index.html'); // HTML 파일 로드
+    win.loadFile('index.html');
 }
 
+// 키 입력을 감지하고 UI에 전달
+keyboardListener.addListener((event) => {
+    // 이벤트를 Electron 윈도우에 전달
+    if (win) {
+        win.webContents.send('key-event', event.rawKey); // 키 값을 UI에 전송
+    }
+});
+akjaskjdkj112323434546567678768789890
+
 app.whenReady().then(createWindow);
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
-
-app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
-});
