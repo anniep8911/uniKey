@@ -127,7 +127,7 @@
                 <div class="key" val="F12">F12</div>
             </div>
             <div class="row">
-                <div class="key spLong" val="Backquote" upperVal="~" orival="`">`</div>
+                <div class="key spLong" val="Backquote" upperVal="~" orival="`" valWin='oem_3'>`</div>
                 <div class="key" val="1" upperVal="!" orival="1">1</div>
                 <div class="key" val="2" upperVal="@" orival="2">2</div>
                 <div class="key" val="3" upperVal="#" orival="3">3</div>
@@ -138,8 +138,8 @@
                 <div class="key" val="8" upperVal="*" orival="8">8</div>
                 <div class="key" val="9" upperVal="(" orival="9">9</div>
                 <div class="key" val="0" upperVal=")" orival="0">0</div>
-                <div class="key" val="Minus" upperVal="_" orival="-">-</div>
-                <div class="key" val="Equal" upperVal="+" orival="=">=</div>
+                <div class="key" val="Minus" upperVal="_" orival="-" valWin='oem_minus'>-</div>
+                <div class="key" val="Equal" upperVal="+" orival="=" valWin='oem_plus'>=</div>
                 <div class="key special" val="Backspace">Backspace</div>
             </div>
             <div class="row">
@@ -174,7 +174,7 @@
                 <div class="key special" val="Enter">Enter</div>
             </div>
             <div class="row">
-                <div class="key special" val="ShiftLeft">Shift</div>
+                <div class="key special" val="ShiftLeft" valWin="lshift">Shift</div>
                 <div class="key" val="Z">Z</div>
                 <div class="key" val="X">X</div>
                 <div class="key" val="C">C</div>
@@ -185,32 +185,32 @@
                 <div class="key" val="Comma" upperVal="&lt;" orival=",">,</div>
                 <div class="key" val="Period" upperVal=">" orival=".">.</div>
                 <div class="key" val="Slash" upperVal="?" orival="/">/</div>
-                <div class="key special" val="ShiftRight">Shift</div>
+                <div class="key special" val="ShiftRight" valWin="rshift">Shift</div>
             </div>
             <div class="row">
-                <div class="key special" val="ControlLeft">Ctrl</div>
-                <div class="key special" val="MetaLeft">Win</div>
-                <div class="key special" val="AltLeft">Alt</div>
+                <div class="key special" val="ControlLeft" valWin="lcontrol">Ctrl</div>
+                <div class="key special" val="MetaLeft" valWin="lwin">Win</div>
+                <div class="key special" val="AltLeft" valWin="lalt">Alt</div>
                 <div class="key special longer" val="Space">Space</div>
-                <div class="key special" val="AltRight">Alt</div>
-                <div class="key special" val="Fn">Fn</div>
-                <div class="key special" val="ControlRight">Ctrl</div>
+                <div class="key special" val="AltRight" valWin="kana">Alt</div>
+                <div class="key special" val="Fn" valWin="apps">Fn</div>
+                <div class="key special" val="ControlRight" valWin="hanja">Ctrl</div>
             </div>
         </div>
         <div class="arrSect">
             <div class="row menu">
                 <div class="key special" val="Insert">Ins</div>
-                <div class="key special" val="Home">Home</div>
-                <div class="key special" val="PageUp">PgUp</div>
+                <div class="key special" val="Home">Home</div> 
+                <div class="key special" val="PageUp" valWin="prior">PgUp</div>
                 <div class="key special" val="End">End</div>
                 <div class="key special" val="Delete">Del</div>
-                <div class="key special" val="PageDown">PgDn</div>
+                <div class="key special" val="PageDown" valWin="next">PgDn</div>
             </div>
             <div class="row">
-                <div class="key special arrUp" val="ArrowUp">▲</div>
-                <div class="key special" val="ArrowLeft">◀</div>
-                <div class="key special" val="ArrowDown">▼</div>
-                <div class="key special" val="ArrowRight">▶</div>
+                <div class="key special arrUp" val="ArrowUp" valWin="up">▲</div>
+                <div class="key special" val="ArrowLeft" valWin="left">◀</div>
+                <div class="key special" val="ArrowDown" valWin="down">▼</div>
+                <div class="key special" val="ArrowRight" valWin="right">▶</div>
             </div>
         </div>
     </div>
@@ -242,8 +242,6 @@
             setCase(nowKey,'upper');
         });
 
-
-
         // 모든 키에 이벤트 리스너 추가
         document.addEventListener('keydown', (event) => {
             event.preventDefault();
@@ -261,8 +259,8 @@
         });
 
         document.addEventListener('keyup', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+            // event.preventDefault();
+            // event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit', '');
             let result = getKey(nowKey);
             if (result) {
@@ -281,9 +279,14 @@
         });
 
         function getKey(val) {
+            val=val.toLowerCase();
             let result = null;
             keys.forEach(e => {
-                e.getAttribute('val') === val ? result = e : '';
+                if(e.getAttribute('valWin')){
+                    (e.getAttribute('valWin').toLowerCase() === val) ? result = e : '';
+                }else{
+                    (e.getAttribute('val').toLowerCase() === val) ? result = e : '';
+                }
             });
             return result;
         }
