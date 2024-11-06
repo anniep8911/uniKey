@@ -14,6 +14,12 @@
 
         "node-global-key-listener": "^0.3.0"
 
+    },
+
+    "devDependencies": {
+
+        "electron": "^33.0.2"
+
     }
 
 }
