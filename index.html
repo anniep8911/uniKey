@@ -224,14 +224,19 @@
 
         // 키 이벤트를 수신하여 화면에 표시
         ipcRenderer.on('key-event', (event, key) => {
-            console.log(key.state);
+            let state = key.state.toLowerCase();
             const display = document.getElementById('key-display');
             let nowKey =  key.name.toLowerCase();
             !key.name.includes('BUTTON')?
             display.innerText = key.name.toLowerCase():''; // 키 값을 화면에 표시 
             let result = getKey(key.name);
-            if (result) {   
-                result.classList.add('pressed');
+            if (result) {
+                if(state==='down') {
+                    result.classList.add('pressed')
+
+                }else{
+                    result.classList.remove('pressed');
+                }
             }
             nowKey === 'capslock' && !capState? capState=true: nowKey === 'capslock' && capState? capState=false:''; 
             setCase(nowKey,'upper');
@@ -241,8 +246,8 @@
 
         // 모든 키에 이벤트 리스너 추가
         document.addEventListener('keydown', (event) => {
-            // event.preventDefault();
-            // event.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit', '');
             let result = getKey(nowKey);
             if (result) {
@@ -256,8 +261,8 @@
         });
 
         document.addEventListener('keyup', (event) => {
-            // event.preventDefault();
-            // event.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit', '');
             let result = getKey(nowKey);
             if (result) {
