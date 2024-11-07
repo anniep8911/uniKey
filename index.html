@@ -18,17 +18,14 @@
 
         body {
             background: #f0f4f8;
-            /* 전체 배경 색 */
             font-family: Arial, sans-serif;
         }
 
         .keyboard {
             display: flex;
             backdrop-filter: blur(10px);
-            /* 배경 흐림 효과 */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             background: rgba(255, 255, 255, 0.3);
-            /* 유리 느낌의 반투명 배경 */
             border-radius: 15px;
 
         }
@@ -140,7 +137,7 @@
                 <div class="key" val="0" upperVal=")" orival="0">0</div>
                 <div class="key" val="Minus" upperVal="_" orival="-" valWin='oem_minus'>-</div>
                 <div class="key" val="Equal" upperVal="+" orival="=" valWin='oem_plus'>=</div>
-                <div class="key special" val="Backspace">Backspace</div>
+                <div class="key special" val="Backspace" valWin="back">Backspace</div>
             </div>
             <div class="row">
                 <div class="key special" val="Tab">Tab</div>
@@ -152,11 +149,11 @@
                 <div class="key" val="Y">Y</div>
                 <div class="key" val="U">U</div>
                 <div class="key" val="I">I</div>
-                <div class="key" val="O">O</div>
+                <div class="key" val="O">O</div>  
                 <div class="key" val="P">P</div>
-                <div class="key" val="[">[</div>
-                <div class="key" val="]">]</div>
-                <div class="key spLong" val="Backslash" upperVal="|" orival="\"> \</div>
+                <div class="key" val="[" valWin="oem_4">[</div>
+                <div class="key" val="]" valWin="oem_6">]</div>
+                <div class="key spLong" val="Backslash" upperVal="|" orival="\" valWin="oem_5">\</div>
             </div>
             <div class="row">
                 <div class="key special" val="CapsLock">Caps Lock</div>
@@ -169,9 +166,9 @@
                 <div class="key" val="J">J</div>
                 <div class="key" val="K">K</div>
                 <div class="key" val="L">L</div>
-                <div class="key" val="Semicolon" upperVal=":" orival=";">;</div>
-                <div class="key" val="Quote" upperVal="&ldquo;" orival="'">'</div>
-                <div class="key special" val="Enter">Enter</div>
+                <div class="key" val="Semicolon" upperVal=":" orival=";" valWin="oem_1">;</div>
+                <div class="key" val="Quote" upperVal="&ldquo;" orival="'" valWin="oem_7">'</div>
+                <div class="key special" val="Enter" valWin="return">Enter</div>
             </div>
             <div class="row">
                 <div class="key special" val="ShiftLeft" valWin="lshift">Shift</div>
@@ -182,9 +179,9 @@
                 <div class="key" val="B">B</div>
                 <div class="key" val="N">N</div>
                 <div class="key" val="M">M</div>
-                <div class="key" val="Comma" upperVal="&lt;" orival=",">,</div>
-                <div class="key" val="Period" upperVal=">" orival=".">.</div>
-                <div class="key" val="Slash" upperVal="?" orival="/">/</div>
+                <div class="key" val="Comma" upperVal="&lt;" orival="," valWin="oem_comma">,</div>
+                <div class="key" val="Period" upperVal=">" orival="." valWin="oem_period">.</div>
+                <div class="key" val="Slash" upperVal="?" orival="/" valWin="oem_2">/</div>
                 <div class="key special" val="ShiftRight" valWin="rshift">Shift</div>
             </div>
             <div class="row">
@@ -193,7 +190,7 @@
                 <div class="key special" val="AltLeft" valWin="lalt">Alt</div>
                 <div class="key special longer" val="Space">Space</div>
                 <div class="key special" val="AltRight" valWin="kana">Alt</div>
-                <div class="key special" val="Fn" valWin="apps">Fn</div>
+                <div class="key special" val="apps">📋</div>
                 <div class="key special" val="ControlRight" valWin="hanja">Ctrl</div>
             </div>
         </div>
@@ -215,8 +212,6 @@
         </div>
     </div>
 
-
-
     <script>
         const {ipcRenderer} = require('electron');
         let keys = document.querySelectorAll('.key');
@@ -232,13 +227,14 @@
             let result = getKey(key.name);
             if (result) {
                 if(state==='down') {
-                    result.classList.add('pressed')
+                    result.classList.add('pressed');
+                    nowKey === 'capslock' && !capState? capState=true : nowKey === 'capslock' && capState? capState=false:'';
 
                 }else{
                     result.classList.remove('pressed');
                 }
             }
-            nowKey === 'capslock' && !capState? capState=true: nowKey === 'capslock' && capState? capState=false:''; 
+            console.log(capState);  
             setCase(nowKey,'upper');
         });
 
@@ -251,16 +247,13 @@
             if (result) {
                 result.classList.add('pressed');
             }
-
-            nowKey === 'CapsLock' && !capState ? capState = true : nowKey === 'CapsLock' && capState ?
-                capState = false : '';
             setCase(nowKey, 'upper');
 
         });
 
         document.addEventListener('keyup', (event) => {
-            // event.preventDefault();
-            // event.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             let nowKey = event.code.replace('Key', '').replace('Digit', '');
             let result = getKey(nowKey);
             if (result) {
