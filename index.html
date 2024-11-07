@@ -12,12 +12,14 @@
             height: 50vh;
             background-color: rgba(255, 255, 255, 0.7);
             color: #fff;
-
         }
 
         body {
             background: #f0f4f8;
             font-family: Arial, sans-serif;
+            width: 100vw;
+            overflow: hidden;
+            
         }
 
         .keyboard {
@@ -26,7 +28,7 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             background: rgba(255, 255, 255, 0.3);
             border-radius: 15px;
-
+            width: calc(100vw - 20px);
         }
 
         .keyboard>div {
@@ -58,6 +60,7 @@
             /* 유리 느낌의 반투명 키 배경 */
             color: #333;
             /* 글자 색 */
+            font-weight: 700;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -71,6 +74,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             scale: 1;
             text-transform: lowercase;
+            font-size: 50px;
         }
 
         .arrUp {
@@ -119,9 +123,9 @@
 </head>
 
 <body>
-
+<!-- 
     <h1>키 입력 감지기</h1>
-    <div id="key-display"></div>
+    <div id="key-display"></div> -->
     <div class="keyboard">
         <div class="keySect">
             <div class="row">
@@ -236,10 +240,10 @@
         // 키 이벤트를 수신하여 화면에 표시
         ipcRenderer.on('key-event', (event, key) => {
             let state = key.state.toLowerCase();
-            const display = document.getElementById('key-display');
+            // const display = document.getElementById('key-display');
             let nowKey =  key.name.toLowerCase();
-            !key.name.includes('BUTTON')?
-            display.innerText = key.name.toLowerCase():''; // 키 값을 화면에 표시 
+            // !key.name.includes('BUTTON')?
+            // display.innerText = key.name.toLowerCase():''; // 키 값을 화면에 표시 
             let result = getKey(key.name);
             if (result) {
                 if(state==='down') {
@@ -284,7 +288,9 @@
                 key.classList.add('pressed');
             });
             key.addEventListener('mouseup', () => {
-                key.classList.remove('pressed');
+                setTimeout(()=>{
+                    key.classList.remove('pressed');
+                },200)
             });
         });
 
