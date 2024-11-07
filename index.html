@@ -11,7 +11,6 @@
             width: 100%;
             height: 50vh;
             background-color: rgba(255, 255, 255, 0.7);
-            ;
             color: #fff;
 
         }
@@ -68,7 +67,7 @@
             cursor: pointer;
             margin-right: 5px;
             position: relative;
-            transition: all 0.2s;
+            transition: all 0.5s;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             scale: 1;
             text-transform: lowercase;
@@ -88,6 +87,23 @@
             /* 눌렸을 때 색상 */
             box-shadow: none;
             scale: 1.5;
+            position: relative;
+        }
+        .key::before{
+            background-image: url('./footprint.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;left: 0;
+            width: 100%;height: 100%;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+        .key.pressed::before{
+            opacity: 1;
         }
 
         .special,
@@ -231,10 +247,11 @@
                     nowKey === 'capslock' && !capState? capState=true : nowKey === 'capslock' && capState? capState=false:'';
 
                 }else{
-                    result.classList.remove('pressed');
+                    setTimeout(()=>{
+                        result.classList.remove('pressed');
+                    },300)
                 }
             }
-            console.log(capState);  
             setCase(nowKey,'upper');
         });
 
