@@ -7,17 +7,27 @@
     <link rel="stylesheet" href="styles.css">
     <title>uniqueKeyboard</title>
     <style>
+        .key-display.disabled{
+            opacity: 0;
+        }
+        .key-display.disabled+.keyboard{
+            margin-top: -120px;
+        }
         .key-display{
+            opacity: 1;
             width: 90%;
-            justify-content: center;
             display: flex;
+            justify-content: flex-start;
             margin: 0 auto;
-            flex-wrap: wrap;
+            transition: opacity 0.5s;
         }
         .key-display .key{
             flex-grow: 0;
             flex-shrink: 0;
             min-width: 50px;
+        }
+        .key-display .key.special{
+            width: 10%;
         }
         .key-display .key.special.longer{
             width: 20%;
@@ -30,10 +40,10 @@
         }
 
         body {
-            background: #d3d3d3; /* 전체 배경을 밝은 그레이로 */
             font-family: Arial, sans-serif;
             width: 100vw;
             overflow: hidden;
+            margin: 0;
         }
 
         .keyboard {
@@ -43,6 +53,7 @@
             background: rgba(180, 180, 180, 0.3); /* 연한 그레이 */
             border-radius: 15px;
             width: calc(100vw - 20px);
+            transition: margin-top 0.5s;
         }
 
         .keyboard > div {
@@ -134,10 +145,11 @@
         }
 
     </style>
+    <link rel="stylesheet" href="./asset/css/space.css">
 </head>
 
 <body>
-    <div class="key-display">
+    <div class="key-display disabled">
      
     </div>
     <div class="keyboard">
@@ -260,8 +272,10 @@
             let result = getKey(nowKey);
             if(nowKey === 'hanja' && !detState){
                 detState = true;
+                display.classList.remove('disabled');
             }else if(nowKey === 'hanja' && detState){
                 display.innerHTML = '';
+                display.className += ' disabled';
                 detState= false;
             }
 
@@ -280,7 +294,7 @@
                         capState = false;
                         setCase('lower');
                     }
-
+                    showDet(result,nowKey);
                     // 키 풀릴때(뗏을때)
                 }else{
                     setTimeout(()=>{
@@ -290,8 +304,6 @@
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('lower',true);
                     }
-
-                    showDet(result);
                 }
             }
         });
@@ -323,16 +335,22 @@
             
         }
 
-        function showDet(result){
+        function showDet(result,nowKey){
             if(detState){ 
-                let unit  =  result.cloneNode(true);
-                unit.getAttribute('oriVal') ? unit.textContent = unit.getAttribute('oriVal')  : ''; 
-                unit.classList.remove('pressed');
-                display.append(unit);
-                // console.log(result)
+                if(nowKey=='back'){
+                    display.removeChild(display.lastElementChild); 
+                }
+                else if (nowKey=='capslock'){
 
+                }else{
+                    let unit  =  result.cloneNode(true);
+                    unit.getAttribute('oriVal') ? unit.textContent = unit.getAttribute('oriVal')  : ''; 
+                    unit.classList.remove('pressed');
+                    display.append(unit);
+                    display.scrollLeft = display.scrollWidth - display.clientWidth;
+                }
             }else{
-                // console.log('전체 지워짐')
+
             }
         }
         
