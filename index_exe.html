@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="styles.css">
     <title>uniqueKeyboard</title>
     <style>
+        .key-display{
+            width: 90%;
+            justify-content: center;
+            display: flex;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .key-display .key{
+            flex-grow: 0;
+            flex-shrink: 0;
+            min-width: 50px;
+        }
+        .key-display .key.special.longer{
+            width: 20%;
+        }
         .workFrame {
         width: 100%;
         height: 50vh;
@@ -122,9 +137,9 @@
 </head>
 
 <body>
-<!-- 
-    <h1>키 입력 감지기</h1>
-    <div id="key-display"></div> -->
+    <div class="key-display">
+     
+    </div>
     <div class="keyboard">
         <div class="keySect">
             <div class="row">
@@ -208,9 +223,9 @@
                 <div class="key special" val="MetaLeft" valWin="lwin">Win</div>
                 <div class="key special" val="AltLeft" valWin="lalt">Alt</div>
                 <div class="key special longer" val="Space">Space</div>
-                <div class="key special" val="AltRight" valWin="kana">Alt</div>
+                <div class="key special" val="AltRight" valWin="">Alt</div>
                 <div class="key special" val="apps">📋</div>
-                <div class="key special" val="ControlRight" valWin="hanja">Ctrl</div>
+                <div class="key special" val="ControlRight" valWin="">Ctrl</div>
             </div>
         </div>
         <div class="arrSect">
@@ -234,22 +249,30 @@
     <script>
         const {ipcRenderer} = require('electron');
         let keys = document.querySelectorAll('.key');
-        const display = document.getElementById('key-display');
+        const display = document.querySelector('.key-display');
         let capState = false;
+        let detState = false;
 
         // 키 이벤트를 수신하여 화면에 표시
         ipcRenderer.on('key-event', (event, key) => {
             let state = key.state.toLowerCase();
             let nowKey =  key.name.toLowerCase();
             let result = getKey(nowKey);
-            if (result) {
+            if(nowKey === 'hanja' && !detState){
+                detState = true;
+            }else if(nowKey === 'hanja' && detState){
+                display.innerHTML = '';
+                detState= false;
+            }
 
+            if (result) {
                 // 눌렸을때
                 if(state==='down') {
                     result.classList.add('pressed');
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('upper',true);
                     }
+
                     if(nowKey==='capslock' && !capState){
                         capState = true;
                         setCase('upper');
@@ -264,10 +287,11 @@
                         result.classList.remove('pressed');
                     },300)
 
-
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('lower',true);
                     }
+
+                    showDet(result);
                 }
             }
         });
@@ -296,6 +320,20 @@
                     }
                 }
             })
+            
+        }
+
+        function showDet(result){
+            if(detState){ 
+                let unit  =  result.cloneNode(true);
+                unit.getAttribute('oriVal') ? unit.textContent = unit.getAttribute('oriVal')  : ''; 
+                unit.classList.remove('pressed');
+                display.append(unit);
+                // console.log(result)
+
+            }else{
+                // console.log('전체 지워짐')
+            }
         }
         
     </script>

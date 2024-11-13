@@ -24,25 +24,9 @@ function createWindow() {
 keyboardListener.addListener((event) => {
     // 이벤트를 Electron 윈도우에 전달
     if (win) {
-        // console.log(event._raw);
         let state =  event._raw.split(',');
         event.rawKey.state=state[1];
         win.webContents.send('key-event', event.rawKey); // 키 값을 UI에 전송
     }
-     // 키가 눌렸을 때 (keydown)
-    //  if (event.eventType === 'keydown' && !keyState.has(event.rawKey)) {
-    //     keyState.set(event.rawKey, 'down'); // 키 상태를 'down'으로 설정
-    //     if (win) {
-    //         win.webContents.send('key-event', { type: 'keydown', key: event.rawKey });
-    //     }
-    // }s
-
-    // // 키가 떼졌을 때 (keyup)
-    // if (event.eventType === 'keyup' && keyState.has(event.rawKey) && keyState.get(event.rawKey) === 'down') {
-    //     keyState.set(event.rawKey, 'up'); // 키 상태를 'up'으로 설정
-    //     if (win) {
-    //         win.webContents.send('key-event', { type: 'keyup', key: event.rawKey });
-    //     }
-    // }
 });
 app.whenReady().then(createWindow);
