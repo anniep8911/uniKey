@@ -243,15 +243,28 @@
             let nowKey =  key.name.toLowerCase();
             let result = getKey(nowKey);
             if (result) {
+
+                // 눌렸을때
                 if(state==='down') {
                     result.classList.add('pressed');
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('upper',true);
                     }
+                    if(nowKey==='capslock' && !capState){
+                        capState = true;
+                        setCase('upper');
+                    }else if(nowKey==='capslock' && capState){ 
+                        capState = false;
+                        setCase('lower');
+                    }
+
+                    // 키 풀릴때(뗏을때)
                 }else{
                     setTimeout(()=>{
                         result.classList.remove('pressed');
                     },300)
+
+
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('lower',true);
                     }
@@ -271,14 +284,14 @@
             return result;
         }
 
-        function setCase(state,upper=false) {
+        function setCase(state,st=false) {
             keys.forEach(e =>{
-                if(!e.classList.contains('special') && upper){
+                if(!e.classList.contains('special')){
                     if(state ==='upper'){
-                        (e.getAttribute('upperVal'))?e.innerHTML = e.getAttribute('upperVal'):'';
+                        st ? (e.getAttribute('upperVal'))?e.innerHTML = e.getAttribute('upperVal'):'' : '';
                         e.style.textTransform = 'uppercase';
                     }else{ 
-                        (e.getAttribute('oriVal'))?e.innerHTML = e.getAttribute('oriVal'):'';
+                        st ? (e.getAttribute('oriVal'))?e.innerHTML = e.getAttribute('oriVal'):'' :'';
                         e.style.textTransform = 'lowercase';
                     }
                 }
