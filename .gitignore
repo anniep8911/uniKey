@@ -2,3 +2,5 @@
 node_modules/
 
 package-lock.json
+
+uniKey-win32-x64/
