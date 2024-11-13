@@ -17,7 +17,7 @@ function createWindow() {
         alwaysOnTop: true, // 이 속성을 추가해!
     });
 
-    win.loadFile('index.html');
+    win.loadFile('index_exe.html');
 }
 
 // 키 입력을 감지하고 UI에 전달
