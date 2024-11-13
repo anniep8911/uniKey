@@ -8,30 +8,29 @@
     <title>uniqueKeyboard</title>
     <style>
         .workFrame {
-            width: 100%;
-            height: 50vh;
-            background-color: rgba(255, 255, 255, 0.7);
-            color: #fff;
+        width: 100%;
+        height: 50vh;
+        background-color: rgba(200, 200, 200, 0.7); /* 밝은 그레이톤 */
+        color: #333; /* 어두운 그레이 */
         }
 
         body {
-            background: #f0f4f8;
+            background: #d3d3d3; /* 전체 배경을 밝은 그레이로 */
             font-family: Arial, sans-serif;
             width: 100vw;
             overflow: hidden;
-            
         }
 
         .keyboard {
             display: flex;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(50, 50, 50, 0.1); /* 그레이톤 그림자 */
+            background: rgba(180, 180, 180, 0.3); /* 연한 그레이 */
             border-radius: 15px;
             width: calc(100vw - 20px);
         }
 
-        .keyboard>div {
+        .keyboard > div {
             width: 90%;
             margin: 0 auto;
             display: flex;
@@ -40,7 +39,7 @@
             row-gap: 10px;
         }
 
-        .keyboard>div:nth-of-type(2) {
+        .keyboard > div:nth-of-type(2) {
             width: 20%;
             justify-content: space-between;
         }
@@ -56,10 +55,8 @@
         }
 
         .key {
-            background: rgba(255, 255, 255, 0.7);
-            /* 유리 느낌의 반투명 키 배경 */
-            color: #333;
-            /* 글자 색 */
+            background: rgba(220, 220, 220, 0.7); /* 버튼 배경을 밝은 그레이 */
+            color: #444; /* 텍스트를 어두운 그레이 */
             font-weight: 700;
             display: flex;
             justify-content: center;
@@ -71,7 +68,7 @@
             margin-right: 5px;
             position: relative;
             transition: all 0.5s;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(80, 80, 80, 0.2); /* 그레이톤 그림자 */
             scale: 1;
             text-transform: lowercase;
         }
@@ -81,18 +78,17 @@
         }
 
         .key:hover {
-            background: rgba(255, 255, 255, 0.9);
-            /* 마우스 오버 시 색상 변화 */
+            background: rgba(220, 220, 220, 0.9); /* 마우스 오버 시 약간 더 진한 그레이 */
         }
 
         .key.pressed {
-            background: rgba(255, 200, 200, 0.8);
-            /* 눌렸을 때 색상 */
+            background: rgba(180, 180, 180, 0.8); /* 눌렸을 때 어두운 그레이 */
             box-shadow: none;
             scale: 1.5;
             position: relative;
         }
-        .key::before{
+
+        .key::before {
             background-image: url('./footprint.png');
             background-size: contain;
             background-repeat: no-repeat;
@@ -100,25 +96,28 @@
             content: '';
             display: block;
             position: absolute;
-            top: 0;left: 0;
-            width: 100%;height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             opacity: 0;
             transition: opacity 0.1s;
         }
-        .key.pressed::before{
+
+        .key.pressed::before {
             opacity: 1;
         }
 
         .special,
         .spLong {
-            background: rgba(200, 200, 255, 0.7);
-            /* 특수키 색상 */
+            background: rgba(150, 150, 150, 0.7); /* 특수키 색상 그레이 */
             text-transform: capitalize;
         }
 
         .special.longer {
             width: 40%;
         }
+
     </style>
 </head>
 
@@ -242,23 +241,25 @@
         ipcRenderer.on('key-event', (event, key) => {
             let state = key.state.toLowerCase();
             let nowKey =  key.name.toLowerCase();
-            let result = getKey(key.name);
+            let result = getKey(nowKey);
             if (result) {
                 if(state==='down') {
                     result.classList.add('pressed');
-                    nowKey === 'capslock' && !capState? capState=true : nowKey === 'capslock' && capState? capState=false:'';
-
+                    if(nowKey === 'lshift' || nowKey === 'rshift'){
+                       setCase('upper',true);
+                    }
                 }else{
                     setTimeout(()=>{
                         result.classList.remove('pressed');
                     },300)
+                    if(nowKey === 'lshift' || nowKey === 'rshift'){
+                       setCase('lower',true);
+                    }
                 }
             }
-            setCase(nowKey,'upper');
         });
 
         function getKey(val) {
-            val=val.toLowerCase();
             let result = null;
             keys.forEach(e => {
                 if(e.getAttribute('valWin')){
@@ -270,8 +271,18 @@
             return result;
         }
 
-        function setCase(nowKey, state) {
-        
+        function setCase(state,upper=false) {
+            keys.forEach(e =>{
+                if(!e.classList.contains('special') && upper){
+                    if(state ==='upper'){
+                        (e.getAttribute('upperVal'))?e.innerHTML = e.getAttribute('upperVal'):'';
+                        e.style.textTransform = 'uppercase';
+                    }else{ 
+                        (e.getAttribute('oriVal'))?e.innerHTML = e.getAttribute('oriVal'):'';
+                        e.style.textTransform = 'lowercase';
+                    }
+                }
+            })
         }
         
     </script>
