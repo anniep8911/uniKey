@@ -44,9 +44,11 @@
             width: 100vw;
             overflow: hidden;
             margin: 0;
+            position: relative;
         }
 
         .keyboard {
+            user-select: none;
             display: flex;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 30px rgba(50, 50, 50, 0.1); /* 그레이톤 그림자 */
@@ -103,10 +105,6 @@
             width: 100%;
         }
 
-        .key:hover {
-            background: rgba(220, 220, 220, 0.9); /* 마우스 오버 시 약간 더 진한 그레이 */
-        }
-
         .key.pressed {
             background: rgba(180, 180, 180, 0.8); /* 눌렸을 때 어두운 그레이 */
             box-shadow: none;
@@ -143,12 +141,21 @@
         .special.longer {
             width: 40%;
         }
+        #drag-region{
+            background: transparent;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;left: 0;
+            z-index: 999;
+        }
 
     </style>
     <link rel="stylesheet" href="./asset/css/space.css">
 </head>
 
 <body>
+    <div id="drag-region"></div>
     <div class="key-display disabled">
      
     </div>
@@ -264,6 +271,54 @@
         const display = document.querySelector('.key-display');
         let capState = false;
         let detState = false;
+        let shState = false;
+        let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const dragRegion = document.getElementById('drag-region');
+
+    // 드래그 시작
+    dragRegion.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      offsetX = event.screenX;  // 마우스의 화면상의 X 좌표
+      offsetY = event.screenY;  // 마우스의 화면상의 Y 좌표
+
+      // 현재 윈도우의 위치
+      const initialX = window.screenX;  // 윈도우의 X 좌표
+      const initialY = window.screenY;  // 윈도우의 Y 좌표
+
+      // 마우스를 움직일 때마다 윈도우 위치 갱신
+      function onMouseMove(event) {
+        if (isDragging) {
+          // 드래그 중 윈도우 위치를 계산하여 이동
+          const deltaX = event.screenX - offsetX; // 현재 마우스 위치에서 시작 위치를 뺀 값
+          const deltaY = event.screenY - offsetY; // 현재 마우스 위치에서 시작 위치를 뺀 값
+
+          // 새로운 윈도우의 위치 계산
+          const newX = initialX + deltaX;
+          const newY = initialY + deltaY;
+
+          // 윈도우 이동
+          ipcRenderer.send('move-window', { x: newX, y: newY });
+        }
+      }
+
+      // 마우스를 떼면 이동 종료
+      function onMouseUp() {
+        if (isDragging) {
+          isDragging = false;
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+      }
+
+      // 드래그 중 계속 마우스 이동을 추적
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+
 
         // 키 이벤트를 수신하여 화면에 표시
         ipcRenderer.on('key-event', (event, key) => {
@@ -340,8 +395,7 @@
                 if(nowKey=='back'){
                     display.removeChild(display.lastElementChild); 
                 }
-                else if (nowKey=='capslock'){
-
+                else if (nowKey=='caplock'){
                 }else{
                     let unit  =  result.cloneNode(true);
                     unit.getAttribute('oriVal') ? unit.textContent = unit.getAttribute('oriVal')  : ''; 
