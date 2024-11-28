@@ -298,16 +298,18 @@
         });
 
         // 랜덤 오디오 발생함수
-        function playRandomAudio() {
+        function playRandomAudio(nowKey) {
             const audioFiles = [
-                './asset/audio/audio1.mp3',
-                './asset/audio/audio2.mp3',
-                './asset/audio/audio3.mp3',
+                './audio1.mp3',
+                './audio2.mp3',
+                './audio3.mp3'
                 // 추가 오디오 파일 경로를 여기에 추가하세요
             ];
             
             const randomIndex = Math.floor(Math.random() * audioFiles.length);
-            const audio = new Audio(audioFiles[randomIndex]);
+            const audio = nowKey==='return'?new Audio('./enter.mp3') :new Audio(audioFiles[randomIndex]);
+
+            nowKey==='return'? new Audio('./enter.mp3'):'';
             audio.play(); // 랜덤 오디오 재생
         }
 
@@ -357,6 +359,7 @@
                 // 눌렸을때
                 if(state==='down') {
                     result.classList.add('pressed');
+                    playRandomAudio(nowKey);
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('upper',true);
                     }
