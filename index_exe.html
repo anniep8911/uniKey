@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>uniqueKeyboard</title>
     <style>
         .key-display.disabled{
@@ -112,26 +111,6 @@
             position: relative;
         }
 
-        .key::before {
-            background-image: url('./footprint.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.1s;
-        }
-
-        .key.pressed::before {
-            opacity: 1;
-        }
-
         .special,
         .spLong {
             background: rgba(150, 150, 150, 0.7); /* 특수키 색상 그레이 */
@@ -152,115 +131,114 @@
 
     </style>
     <link rel="stylesheet" href="./asset/css/space.css">
+    <link rel="stylesheet" href="./asset/css/christmas.css">
 </head>
 
 <body>
     <div id="drag-region"></div>
-    <div class="key-display disabled">
-     
-    </div>
+    <div class="key-display disabled"></div>
     <div class="keyboard">
         <div class="keySect">
             <div class="row">
-                <div class="key special" val="Escape">Esc</div>
-                <div class="key special" val="F1">F1</div>
-                <div class="key special" val="F2">F2</div>
-                <div class="key special" val="F3">F3</div>
-                <div class="key special" val="F4">F4</div>
-                <div class="key special" val="F5">F5</div>
-                <div class="key special" val="F6">F6</div>
-                <div class="key special" val="F7">F7</div>
-                <div class="key special" val="F8">F8</div>
-                <div class="key special" val="F9">F9</div>
-                <div class="key special" val="F10">F10</div>
-                <div class="key special" val="F11">F11</div>
-                <div class="key special" val="F12">F12</div>
+                <div class="key special" val="Escape">Esc<span class="skin"></span></div>
+                <div class="key special" val="F1">F1<span class="skin"></span></div>
+                <div class="key special" val="F2">F2<span class="skin"></span></div>
+                <div class="key special" val="F3">F3<span class="skin"></span></div>
+                <div class="key special" val="F4">F4<span class="skin"></span></div>
+                <div class="key special" val="F5">F5<span class="skin"></span></div>
+                <div class="key special" val="F6">F6<span class="skin"></span></div>
+                <div class="key special" val="F7">F7<span class="skin"></span></div>
+                <div class="key special" val="F8">F8<span class="skin"></span></div>
+                <div class="key special" val="F9">F9<span class="skin"></span></div>
+                <div class="key special" val="F10">F10<span class="skin"></span></div>
+                <div class="key special" val="F11">F11<span class="skin"></span></div>
+                <div class="key special" val="F12">F12<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key spLong" val="Backquote" upperVal="~" orival="`" valWin='oem_3'>`</div>
-                <div class="key" val="1" upperVal="!" orival="1">1</div>
-                <div class="key" val="2" upperVal="@" orival="2">2</div>
-                <div class="key" val="3" upperVal="#" orival="3">3</div>
-                <div class="key" val="4" upperVal="$" orival="4">4</div>
-                <div class="key" val="5" upperVal="%" orival="5">5</div>
-                <div class="key" val="6" upperVal="^" orival="6">6</div>
-                <div class="key" val="7" upperVal="&" orival="7">7</div>
-                <div class="key" val="8" upperVal="*" orival="8">8</div>
-                <div class="key" val="9" upperVal="(" orival="9">9</div>
-                <div class="key" val="0" upperVal=")" orival="0">0</div>
-                <div class="key" val="Minus" upperVal="_" orival="-" valWin='oem_minus'>-</div>
-                <div class="key" val="Equal" upperVal="+" orival="=" valWin='oem_plus'>=</div>
-                <div class="key special" val="Backspace" valWin="back">Backspace</div>
+                <div class="key spLong" val="Backquote" upperVal="~" orival="`" valWin='oem_3'>`<span class="skin"></span></div>
+                <div class="key" val="1" upperVal="!" orival="1">1<span class="skin"></span></div>
+                <div class="key" val="2" upperVal="@" orival="2">2<span class="skin"></span></div>
+                <div class="key" val="3" upperVal="#" orival="3">3<span class="skin"></span></div>
+                <div class="key" val="4" upperVal="$" orival="4">4<span class="skin"></span></div>
+                <div class="key" val="5" upperVal="%" orival="5">5<span class="skin"></span></div>
+                <div class="key" val="6" upperVal="^" orival="6">6<span class="skin"></span></div>
+                <div class="key" val="7" upperVal="&" orival="7">7<span class="skin"></span></div>
+                <div class="key" val="8" upperVal="*" orival="8">8<span class="skin"></span></div>
+                <div class="key" val="9" upperVal="(" orival="9">9<span class="skin"></span></div>
+                <div class="key" val="0" upperVal=")" orival="0">0<span class="skin"></span></div>
+                <div class="key" val="Minus" upperVal="_" orival="-" valWin='oem_minus'>-<span class="skin"></span></div>
+                <div class="key" val="Equal" upperVal="+" orival="=" valWin='oem_plus'>=<span class="skin"></span></div>
+                <div class="key special" val="Backspace" valWin="back">Backspace<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key special" val="Tab">Tab</div>
-                <div class="key" val="Q">Q</div>
-                <div class="key" val="W">W</div>
-                <div class="key" val="E">E</div>
-                <div class="key" val="R">R</div>
-                <div class="key" val="T">T</div>
-                <div class="key" val="Y">Y</div>
-                <div class="key" val="U">U</div>
-                <div class="key" val="I">I</div>
-                <div class="key" val="O">O</div>  
-                <div class="key" val="P">P</div>
-                <div class="key" val="[" valWin="oem_4">[</div>
-                <div class="key" val="]" valWin="oem_6">]</div>
-                <div class="key spLong" val="Backslash" upperVal="|" orival="\" valWin="oem_5">\</div>
+                <div class="key special" val="Tab">Tab<span class="skin"></span></div>
+                <div class="key" val="Q">Q<span class="skin"></span></div>
+                <div class="key" val="W">W<span class="skin"></span></div>
+                <div class="key" val="E">E<span class="skin"></span></div>
+                <div class="key" val="R">R<span class="skin"></span></div>
+                <div class="key" val="T">T<span class="skin"></span></div>
+                <div class="key" val="Y">Y<span class="skin"></span></div>
+                <div class="key" val="U">U<span class="skin"></span></div>
+                <div class="key" val="I">I<span class="skin"></span></div>
+                <div class="key" val="O">O<span class="skin"></span></div>  
+                <div class="key" val="P">P<span class="skin"></span></div>
+                <div class="key" val="[" valWin="oem_4">[<span class="skin"></span></div>
+                <div class="key" val="]" valWin="oem_6">]<span class="skin"></span></div>
+                <div class="key spLong" val="Backslash" upperVal="|" orival="\" valWin="oem_5">\<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key special" val="CapsLock">Caps Lock</div>
-                <div class="key" val="A">A</div>
-                <div class="key" val="S">S</div>
-                <div class="key" val="D">D</div>
-                <div class="key" val="F">F</div>
-                <div class="key" val="G">G</div>
-                <div class="key" val="H">H</div>
-                <div class="key" val="J">J</div>
-                <div class="key" val="K">K</div>
-                <div class="key" val="L">L</div>
-                <div class="key" val="Semicolon" upperVal=":" orival=";" valWin="oem_1">;</div>
+                <div class="key special" val="CapsLock">Caps Lock<span class="skin"></span></div>
+                <div class="key" val="A">A<span class="skin"></span></div>
+                <div class="key" val="S">S<span class="skin"></span></div>
+                <div class="key" val="D">D<span class="skin"></span></div>
+                <div class="key" val="F">F<span class="skin"></span></div>
+                <div class="key" val="G">G<span class="skin"></span></div>
+                <div class="key" val="H">H<span class="skin"></span></div>
+                <div class="key" val="J">J<span class="skin"></span></div>
+                <div class="key" val="K">K<span class="skin"></span></div>
+                <div class="key" val="L">L<span class="skin"></span></div>
+                <div class="key" val="Semicolon" upperVal=":" orival=";" valWin="oem_1">;<span class="skin"></span></div>
                 <div class="key" val="Quote" upperVal="&ldquo;" orival="'" valWin="oem_7">'</div>
-                <div class="key special" val="Enter" valWin="return">Enter</div>
+                <div class="key special" val="Enter" valWin="return">Enter<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key special" val="ShiftLeft" valWin="lshift">Shift</div>
-                <div class="key" val="Z">Z</div>
-                <div class="key" val="X">X</div>
-                <div class="key" val="C">C</div>
-                <div class="key" val="V">V</div>
-                <div class="key" val="B">B</div>
-                <div class="key" val="N">N</div>
-                <div class="key" val="M">M</div>
-                <div class="key" val="Comma" upperVal="&lt;" orival="," valWin="oem_comma">,</div>
-                <div class="key" val="Period" upperVal=">" orival="." valWin="oem_period">.</div>
-                <div class="key" val="Slash" upperVal="?" orival="/" valWin="oem_2">/</div>
-                <div class="key special" val="ShiftRight" valWin="rshift">Shift</div>
+                <div class="key special" val="ShiftLeft" valWin="lshift">Shift<span class="skin"></span></div>
+                <div class="key" val="Z">Z<span class="skin"></span></div>
+                <div class="key" val="X">X<span class="skin"></span></div>
+                <div class="key" val="C">C<span class="skin"></span></div>
+                <div class="key" val="V">V<span class="skin"></span></div>
+                <div class="key" val="B">B<span class="skin"></span></div>
+                <div class="key" val="N">N<span class="skin"></span></div>
+                <div class="key" val="M">M<span class="skin"></span></div>
+                <div class="key" val="Comma" upperVal="&lt;" orival="," valWin="oem_comma">, <span class="skin"></span></div>
+                <div class="key" val="Period" upperVal=">" orival="." valWin="oem_period">. <span class="skin"></span></div>
+                <div class="key" val="Slash" upperVal="?" orival="/" valWin="oem_2">/ <span class="skin"></span></div>
+                <div class="key special" val="ShiftRight" valWin="rshift">Shift<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key special" val="ControlLeft" valWin="lcontrol">Ctrl</div>
-                <div class="key special" val="MetaLeft" valWin="lwin">Win</div>
-                <div class="key special" val="AltLeft" valWin="lalt">Alt</div>
-                <div class="key special longer" val="Space">Space</div>
-                <div class="key special" val="AltRight" valWin="">Alt</div>
-                <div class="key special" val="apps">📋</div>
-                <div class="key special" val="ControlRight" valWin="">Ctrl</div>
+                <div class="key special" val="ControlLeft" valWin="lcontrol">Ctrl<span class="skin"></span></div>
+                <div class="key special" val="MetaLeft" valWin="lwin">Win<span class="skin"></span></div>
+                <div class="key special" val="AltLeft" valWin="lalt">Alt<span class="skin"></span></div>
+                <div class="key special longer" val="Space">Space<span class="skin"></span></div>
+                <div class="key special" val="AltRight" valWin="">Alt<span class="skin"></span></div>
+                <div class="key special" val="apps">📋<span class="skin"></span></div>
+                <div class="key special" val="ControlRight" valWin="">Ctrl<span class="skin"></span></div>
             </div>
         </div>
         <div class="arrSect">
             <div class="row menu">
-                <div class="key special" val="Insert">Ins</div>
-                <div class="key special" val="Home">Home</div> 
-                <div class="key special" val="PageUp" valWin="prior">PgUp</div>
-                <div class="key special" val="End">End</div>
-                <div class="key special" val="Delete">Del</div>
-                <div class="key special" val="PageDown" valWin="next">PgDn</div>
+                <div class="key special" val="Insert">Ins<span class="skin"></span></div>
+                <div class="key special" val="Home">Home<span class="skin"></span></div> 
+                <div class="key special" val="PageUp" valWin="prior">PgUp<span class="skin"></span></div>
+                <div class="key special" val="End">End<span class="skin"></span></div>
+                <div class="key special" val="Delete">Del<span class="skin"></span></div>
+                <div class="key special" val="PageDown" valWin="next">PgDn<span class="skin"></span></div>
             </div>
             <div class="row">
-                <div class="key special arrUp" val="ArrowUp" valWin="up">▲</div>
-                <div class="key special" val="ArrowLeft" valWin="left">◀</div>
-                <div class="key special" val="ArrowDown" valWin="down">▼</div>
-                <div class="key special" val="ArrowRight" valWin="right">▶</div>
+                <div class="key special arrUp" val="ArrowUp" valWin="up">▲<span class="skin"></span></div>
+                <div class="key special" val="ArrowLeft" valWin="left">◀<span class="skin"></span></div>
+                <div class="key special" val="ArrowDown" valWin="down">▼<span class="skin"></span></div>
+                <div class="key special" val="ArrowRight" valWin="right">▶<span class="skin"></span></div>
             </div>
         </div>
     </div>
@@ -268,56 +246,97 @@
     <script>
         const {ipcRenderer} = require('electron');
         let keys = document.querySelectorAll('.key');
+        let skin = document.querySelectorAll('.skin');
         const display = document.querySelector('.key-display');
         let capState = false;
         let detState = false;
         let shState = false;
         let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
+        let offsetX = 0;
+        let offsetY = 0;
 
-    const dragRegion = document.getElementById('drag-region');
+        const dragRegion = document.getElementById('drag-region');
 
-    // 드래그 시작
-    dragRegion.addEventListener('mousedown', (event) => {
-      isDragging = true;
-      offsetX = event.screenX;  // 마우스의 화면상의 X 좌표
-      offsetY = event.screenY;  // 마우스의 화면상의 Y 좌표
+        // 드래그 시작
+        dragRegion.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        offsetX = event.screenX;  // 마우스의 화면상의 X 좌표
+        offsetY = event.screenY;  // 마우스의 화면상의 Y 좌표
 
-      // 현재 윈도우의 위치
-      const initialX = window.screenX;  // 윈도우의 X 좌표
-      const initialY = window.screenY;  // 윈도우의 Y 좌표
+        // 현재 윈도우의 위치
+        const initialX = window.screenX;  // 윈도우의 X 좌표
+        const initialY = window.screenY;  // 윈도우의 Y 좌표
 
-      // 마우스를 움직일 때마다 윈도우 위치 갱신
-      function onMouseMove(event) {
-        if (isDragging) {
-          // 드래그 중 윈도우 위치를 계산하여 이동
-          const deltaX = event.screenX - offsetX; // 현재 마우스 위치에서 시작 위치를 뺀 값
-          const deltaY = event.screenY - offsetY; // 현재 마우스 위치에서 시작 위치를 뺀 값
+        // 마우스를 움직일 때마다 윈도우 위치 갱신
+        function onMouseMove(event) {
+            if (isDragging) {
+            // 드래그 중 윈도우 위치를 계산하여 이동
+            const deltaX = event.screenX - offsetX; // 현재 마우스 위치에서 시작 위치를 뺀 값
+            const deltaY = event.screenY - offsetY; // 현재 마우스 위치에서 시작 위치를 뺀 값
 
-          // 새로운 윈도우의 위치 계산
-          const newX = initialX + deltaX;
-          const newY = initialY + deltaY;
+            // 새로운 윈도우의 위치 계산
+            const newX = initialX + deltaX;
+            const newY = initialY + deltaY;
 
-          // 윈도우 이동
-          ipcRenderer.send('move-window', { x: newX, y: newY });
+            // 윈도우 이동
+            ipcRenderer.send('move-window', { x: newX, y: newY });
+            }
         }
-      }
 
-      // 마우스를 떼면 이동 종료
-      function onMouseUp() {
-        if (isDragging) {
-          isDragging = false;
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
+        // 마우스를 떼면 이동 종료
+        function onMouseUp() {
+            if (isDragging) {
+            isDragging = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            }
         }
-      }
 
-      // 드래그 중 계속 마우스 이동을 추적
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
+        // 드래그 중 계속 마우스 이동을 추적
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        });
 
+        // 랜덤 오디오 발생함수
+        function playRandomAudio() {
+            const audioFiles = [
+                './asset/audio/audio1.mp3',
+                './asset/audio/audio2.mp3',
+                './asset/audio/audio3.mp3',
+                // 추가 오디오 파일 경로를 여기에 추가하세요
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * audioFiles.length);
+            const audio = new Audio(audioFiles[randomIndex]);
+            audio.play(); // 랜덤 오디오 재생
+        }
+
+        // 랜덤이미지 발생 함수
+        function setRandomBackgroundImage(element) {
+            const images = [
+                `url('./asset/keyskin/imgup 3.png')`,
+                `url('./asset/keyskin/imgup 4.png')`,
+                `url('./asset/keyskin/imgup 5.png')`,
+                `url('./asset/keyskin/imgup 6.png')`,
+                `url('./asset/keyskin/imgup 7.png')`,
+                `url('./asset/keyskin/imgup 8.png')`,
+                `url('./asset/keyskin/imgup 9.png')`,
+                `url('./asset/keyskin/imgup 10.png')`,
+                `url('./asset/keyskin/imgup 11.png')`,
+                `url('./asset/keyskin/imgup 12.png')`,
+                `url('./asset/keyskin/imgup 13.png')`,
+                `url('./asset/keyskin/imgup 14.png')`,
+                `url('./asset/keyskin/imgup 15.png')`,
+                `url('./asset/keyskin/imgup 16.png')`,
+                `url('./asset/keyskin/imgup 17.png')`,
+            ];  
+            const randomIndex = Math.floor(Math.random() * images.length);
+            element.style.backgroundImage = images[randomIndex];
+        }
+
+        skin.forEach(e=>{
+            setRandomBackgroundImage(e)
+        })
 
 
         // 키 이벤트를 수신하여 화면에 표시
@@ -341,7 +360,6 @@
                     if(nowKey === 'lshift' || nowKey === 'rshift'){
                        setCase('upper',true);
                     }
-
                     if(nowKey==='capslock' && !capState){
                         capState = true;
                         setCase('upper');
