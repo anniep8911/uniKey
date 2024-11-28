@@ -7,8 +7,8 @@ const keyState = new Map();
 
 function createWindow() {
     win = new BrowserWindow({
-        width: 1000,
-        height: 500,
+        width: 1200,
+        height: 600,
         frame: false,
         transparent: true,
         webPreferences: {
@@ -20,9 +20,11 @@ function createWindow() {
 
     win.loadFile('index_exe.html');
     
+    
+    
     // 윈도우 이동 처리: 렌더러에서 받은 x, y 좌표로 윈도우 이동
     ipcMain.on('move-window', (event, { x, y }) => {
-        win.setBounds({ x, y, width: 1000, height: 600 });
+        win.setBounds({ x, y, width: 1200, height: 600 });
     });
 }
 
@@ -36,3 +38,5 @@ keyboardListener.addListener((event) => {
 });
 
 app.whenReady().then(createWindow);
+
+
