@@ -210,9 +210,9 @@
                 <div class="key" val="B">B<span class="skin"></span></div>
                 <div class="key" val="N">N<span class="skin"></span></div>
                 <div class="key" val="M">M<span class="skin"></span></div>
-                <div class="key" val="Comma" upperVal="&lt;" orival="," valWin="oem_comma">, <span class="skin"></span></div>
-                <div class="key" val="Period" upperVal=">" orival="." valWin="oem_period">. <span class="skin"></span></div>
-                <div class="key" val="Slash" upperVal="?" orival="/" valWin="oem_2">/ <span class="skin"></span></div>
+                <div class="key" val="Comma" upperVal="&lt;" orival="&#44;" valWin="oem_comma">&#44;<span class="skin"></span></div>
+                <div class="key" val="Period" upperVal="&gt;" orival="&#46;" valWin="oem_period">&#46; <span class="skin"></span></div>
+                <div class="key" val="Slash" upperVal="?" orival="&sol;" valWin="oem_2">&sol; <span class="skin"></span></div>
                 <div class="key special" val="ShiftRight" valWin="rshift">Shift<span class="skin"></span></div>
             </div>
             <div class="row">
@@ -400,10 +400,18 @@
             keys.forEach(e =>{
                 if(!e.classList.contains('special')){
                     if(state ==='upper'){
-                        st ? (e.getAttribute('upperVal'))?e.innerHTML = e.getAttribute('upperVal'):'' : '';
+                        st ? (e.getAttribute('upperVal'))?(
+                            e.innerHTML = e.getAttribute('upperVal')+`<span class="skin"></span>`,
+                            setRandomBackgroundImage(e.children[0])
+                        ):'' : '';
                         e.style.textTransform = 'uppercase';
                     }else{ 
-                        st ? (e.getAttribute('oriVal'))?e.innerHTML = e.getAttribute('oriVal'):'' :'';
+                        st ? (e.getAttribute('oriVal'))?
+                        (
+                            e.innerHTML = e.getAttribute('oriVal')+`<span class="skin"></span>`,
+                            setRandomBackgroundImage(e.children[0])
+                        )
+                        :'' :'';
                         e.style.textTransform = 'lowercase';
                     }
                 }
