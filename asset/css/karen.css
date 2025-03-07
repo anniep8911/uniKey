@@ -1,0 +1,120 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+.workFrame {
+    background-color: rgba(255, 240, 245, 0.8); 라이트 핑크 투명
+    color: #deb7ff; /* 라벤더 텍스트 */
+}
+
+body {
+    font-family: "Bubblegum Sans", sans-serif;
+    width: 100vw;
+    overflow: hidden;
+    perspective: 1200px;
+    /* background: linear-gradient(135deg, rgba(255, 218, 233, 0.7), rgba(230, 230, 255, 0.7)); */
+}
+
+.keyboard {
+    display: flex;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 5px 30px rgba(230, 204, 255, 0.4); /* 부드러운 라벤더 그림자 */
+    background: white;
+    border-radius: 20px;
+    width: 87%;
+    margin: auto;
+    padding-bottom: 20px;
+    transform: rotateX(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+}
+
+.key {
+    background: linear-gradient(135deg, #fffaf0, #ffecf5); /* 크림 + 베이비 핑크 */
+    border: 2px solid white;
+    color: #a86bd8; /* 라벤더 글씨 */
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    flex-grow: 1;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s;
+    box-shadow: 0px 12px 0px #e5d1ff;
+    scale: 1;
+    text-transform: capitalize;
+}
+
+.key:hover {
+    background: linear-gradient(135deg, #ffe4f5, #d1c4ff); /* 핑크 + 연한 보라 */
+    box-shadow: 0px 10px 20px rgba(230, 200, 255, 0.6);
+}
+
+.key.pressed {
+    box-shadow: none;
+    scale: 1;
+    background: #ffb6c1; /* 베이비 핑크 */
+    color: white;
+}
+
+.special,
+.spLong {
+    background: rgba(180, 150, 255, 1); /* 연보라 */
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.special.longer {
+    width: 40%;
+}
+
+.key-display {
+    width: 95%;
+    height: 100px;
+    margin: 20px auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    background: rgba(230, 204, 255, 0.3); /* 부드러운 라벤더 투명 */
+    color: #a86bd8; /* 연한 보라 */
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 192, 203, 0.6), 0 0 30px rgba(230, 204, 255, 0.5);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+@keyframes cosmicGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 218, 233, 0.5), 0 0 30px rgba(230, 204, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(255, 192, 203, 0.7), 0 0 40px rgba(230, 204, 255, 0.6);
+    }
+}
+
+/* 스크롤바 스타일 */
+.key-display::-webkit-scrollbar {
+    height: 8px;
+}
+
+.key-display::-webkit-scrollbar-track {
+    background: rgba(255, 240, 245, 0.3); /* 라이트 핑크 */
+    border-radius: 10px;
+}
+
+.key-display::-webkit-scrollbar-thumb {
+    background-color: rgba(230, 204, 255, 0.7); /* 연한 보라 */
+    border-radius: 10px;
+    border: 2px solid rgba(255, 218, 233, 0.7);
+}
+
+.key-display::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(210, 180, 255, 0.8); /* 살짝 진한 라벤더 */
+}

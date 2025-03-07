@@ -50,8 +50,9 @@ body {
 }
 
 .key {
-    background: rgba(128, 0, 0, 0.7); /* 톤다운된 와인색 버튼 배경 */
-    color: #ffffff; /* 흰색 텍스트 */
+    background: white; /* 톤다운된 와인색 버튼 배경 */
+    border: 2px solid black;
+    color: #000; /* 흰색 텍스트 */
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -63,7 +64,7 @@ body {
     margin-right: 5px;
     position: relative;
     transition: all 0.5s;
-    box-shadow: 0px 10px 0px black;
+    box-shadow: 0px 20px 0px black;
     scale: 1;
     text-transform: lowercase;
 }
@@ -77,11 +78,11 @@ body {
 }
 
 .key.pressed {
-    background: rgba(150, 100, 120, 0.8); /* 톤다운된 핑크 눌린 상태 */
     box-shadow: none;
     scale: 1;
     position: relative;
-    box-shadow: 0px 0px 0px gray;
+    background-color:darkred;
+    color: #fff;
 }
 
 .key .skin {
@@ -104,7 +105,7 @@ body {
 
 .special,
 .spLong {
-    background: rgba(0, 80, 80, 0.7); /* 톤다운된 청록색 배경 */
+    background: rgba(0, 80, 80, 1); /* 톤다운된 청록색 배경 */
     color: #ffffff; /* 흰색 텍스트 */
     text-transform: capitalize;
 }

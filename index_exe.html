@@ -131,6 +131,7 @@
     </style>
     <link rel="stylesheet" href="./asset/css/space.css">
     <link rel="stylesheet" href="./asset/css/christmas.css">
+    <link rel="stylesheet" href="./asset/css/karen.css">
 </head>
 
 <body>
@@ -299,39 +300,41 @@
         // 랜덤 오디오 발생함수
         function playRandomAudio(nowKey) {
             const audioFiles = [
-                './audio_ch01.mp3',
-                './audio_ch02.mp3',
-                './audio_ch03.mp3',
-                './audio_ch04.mp3',
-                './audio_ch05.mp3'
+                // './audiKey01.mp3',
+                // './audiKey02.mp3',
+                // './audiKey03.mp3',
+                // './audiKey04.mp3',
+                './audiKey05.mp3',
+                // './audiKey06.mp3',
+                // './audiKey07.mp3',
                 // 추가 오디오 파일 경로를 여기에 추가하세요
             ];
-            
+            console.log(nowKey);
             const randomIndex = Math.floor(Math.random() * audioFiles.length);
-            const audio = nowKey==='return'?new Audio('./enter.mp3') :new Audio(audioFiles[randomIndex]);
-
-            nowKey==='return'? new Audio('./enter.mp3'):'';
+            const audio = nowKey==='return'?new Audio('./audiKey05.mp3'):nowKey==='back'?new Audio('') :new Audio(audioFiles[randomIndex]);
             audio.play(); // 랜덤 오디오 재생
         }
 
         // 랜덤이미지 발생 함수
         function setRandomBackgroundImage(element) {
             const images = [
-                `url('./asset/keyskin/imgup 3.png')`,
-                `url('./asset/keyskin/imgup 4.png')`,
-                `url('./asset/keyskin/imgup 5.png')`,
-                `url('./asset/keyskin/imgup 6.png')`,
-                `url('./asset/keyskin/imgup 7.png')`,
-                `url('./asset/keyskin/imgup 8.png')`,
-                `url('./asset/keyskin/imgup 9.png')`,
-                `url('./asset/keyskin/imgup 10.png')`,
-                `url('./asset/keyskin/imgup 11.png')`,
-                `url('./asset/keyskin/imgup 12.png')`,
-                `url('./asset/keyskin/imgup 13.png')`,
-                `url('./asset/keyskin/imgup 14.png')`,
-                `url('./asset/keyskin/imgup 15.png')`,
-                `url('./asset/keyskin/imgup 16.png')`,
-                `url('./asset/keyskin/imgup 17.png')`,
+                `url('./asset/keyskin/move (1).gif')`,
+                `url('./asset/keyskin/move (2).gif')`,
+                `url('./asset/keyskin/move (3).gif')`,
+                `url('./asset/keyskin/move (4).gif')`,
+                `url('./asset/keyskin/move (5).gif')`,
+                `url('./asset/keyskin/move (6).gif')`,
+                // `url('./asset/keyskin/imgup 7.png')`,
+                // `url('./asset/keyskin/imgup 8.png')`,
+                // `url('./asset/keyskin/imgup 9.png')`,
+                // `url('./asset/keyskin/imgup 10.png')`,
+                // `url('./asset/keyskin/imgup 11.png')`,
+                // `url('./asset/keyskin/imgup 12.png')`,
+                // `url('./asset/keyskin/imgup 13.png')`,
+                // `url('./asset/keyskin/imgup 14.png')`,
+                // `url('./asset/keyskin/imgup 15.png')`,
+                // `url('./asset/keyskin/imgup 16.png')`,
+                // `url('./asset/keyskin/imgup 17.png')`,
             ];  
             const randomIndex = Math.floor(Math.random() * images.length);
             element.style.backgroundImage = images[randomIndex];
@@ -343,47 +346,98 @@
 
 
         // 키 이벤트를 수신하여 화면에 표시
+        // ipcRenderer.on('key-event', (event, key) => {
+        //     let state = key.state.toLowerCase();
+        //     let nowKey =  key.name.toLowerCase();
+        //     let result = getKey(nowKey);
+        //     if(nowKey === 'hanja' && !detState){
+        //         detState = true;
+        //         display.classList.remove('disabled');
+        //     }else if(nowKey === 'hanja' && detState){
+        //         display.innerHTML = '';
+        //         display.className += ' disabled';
+        //         detState= false;
+        //     }
+
+        //     if (result) {
+        //         // 눌렸을때
+        //         if(state==='down') {
+        //             result.classList.add('pressed');
+        //             if(nowKey === 'lshift' || nowKey === 'rshift'){
+        //                setCase('upper',true);
+        //             }
+        //             if(nowKey==='capslock' && !capState){
+        //                 capState = true;
+        //                 setCase('upper');
+        //             }else if(nowKey==='capslock' && capState){ 
+        //                 capState = false;
+        //                 setCase('lower');
+        //             }
+        //             showDet(result,nowKey);
+        //             playRandomAudio(nowKey);
+        //             // 키 풀릴때(뗏을때)
+        //         }else{
+        //             setTimeout(()=>{
+        //                 result.classList.remove('pressed');
+        //             },300)
+
+        //             if(nowKey === 'lshift' || nowKey === 'rshift'){
+        //                setCase('lower',true);
+        //             }
+        //         }
+        //     }
+        // });
+
+        const pressedKeys = {}; // 키가 눌린 상태 저장 객체
+
         ipcRenderer.on('key-event', (event, key) => {
             let state = key.state.toLowerCase();
-            let nowKey =  key.name.toLowerCase();
+            let nowKey = key.name.toLowerCase();
             let result = getKey(nowKey);
-            if(nowKey === 'hanja' && !detState){
+
+            if (nowKey === 'hanja' && !detState) {
                 detState = true;
                 display.classList.remove('disabled');
-            }else if(nowKey === 'hanja' && detState){
+            } else if (nowKey === 'hanja' && detState) {
                 display.innerHTML = '';
                 display.className += ' disabled';
-                detState= false;
+                detState = false;
             }
 
             if (result) {
                 // 눌렸을때
-                if(state==='down') {
-                    result.classList.add('pressed');
-                    playRandomAudio(nowKey);
-                    if(nowKey === 'lshift' || nowKey === 'rshift'){
-                       setCase('upper',true);
-                    }
-                    if(nowKey==='capslock' && !capState){
-                        capState = true;
-                        setCase('upper');
-                    }else if(nowKey==='capslock' && capState){ 
-                        capState = false;
-                        setCase('lower');
-                    }
-                    showDet(result,nowKey);
-                    // 키 풀릴때(뗏을때)
-                }else{
-                    setTimeout(()=>{
-                        result.classList.remove('pressed');
-                    },300)
+                if (state === 'down') {
+                    if (!pressedKeys[nowKey]) { // 이미 눌린 키가 아니라면
+                        result.classList.add('pressed');
+                        pressedKeys[nowKey] = true; // 키를 눌렀다고 저장
 
-                    if(nowKey === 'lshift' || nowKey === 'rshift'){
-                       setCase('lower',true);
+                        if (nowKey === 'lshift' || nowKey === 'rshift') {
+                            setCase('upper', true);
+                        }
+                        if (nowKey === 'capslock' && !capState) {
+                            capState = true;
+                            setCase('upper');
+                        } else if (nowKey === 'capslock' && capState) {
+                            capState = false;
+                            setCase('lower');
+                        }
+
+                        showDet(result, nowKey);
+                        playRandomAudio(nowKey); // ✅ 소리 한 번만 재생
+                    }
+                } else { 
+                    setTimeout(() => {
+                        result.classList.remove('pressed');
+                        pressedKeys[nowKey] = false; // 키를 떼면 다시 눌릴 수 있도록 초기화
+                    }, 300);
+
+                    if (nowKey === 'lshift' || nowKey === 'rshift') {
+                        setCase('lower', true);
                     }
                 }
             }
         });
+
 
         function getKey(val) {
             let result = null;
